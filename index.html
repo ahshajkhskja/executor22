@@ -41,13 +41,22 @@
         function sendScript() {
             const input = document.getElementById('scriptInput').value.trim();
             if (input === "") return;
+
+            // Update raw file via direct link (works better on Netlify)
+            fetch("https://neizexecutor.netlify.app/raw", {
+                method: "PUT",
+                body: input,
+                headers: { "Content-Type": "text/plain" }
+            }).catch(() => {});
+
             navigator.clipboard.writeText(input).then(() => {
                 const btn = document.querySelectorAll('.action-btn')[0];
                 const original = btn.innerText;
-                btn.innerText = "SENT ✓";
-                setTimeout(() => btn.innerText = original, 1400);
+                btn.innerText = "SENT TO ROBLOX ✓";
+                setTimeout(() => btn.innerText = original, 1600);
             });
         }
+
         function clearScript() {
             document.getElementById('scriptInput').value = "";
             const btn = document.querySelectorAll('.action-btn')[1];
