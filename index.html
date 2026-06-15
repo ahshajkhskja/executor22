@@ -26,33 +26,28 @@
     <div class="container">
         <div class="header">
             <h1>NEIZ<br>404</h1>
-            <p>REMOTE EXECUTOR</p>
+            <p>UGC EXECUTOR</p>
         </div>
         <div class="executor">
             <textarea id="scriptInput" spellcheck="false" placeholder="Paste your script here..."></textarea>
             <div class="controls">
-                <button class="action-btn" onclick="sendScript()">SEND TO ROBLOX</button>
+                <button class="action-btn" onclick="executeScript()">EXECUTE</button>
                 <button class="action-btn" onclick="clearScript()">CLEAR</button>
             </div>
         </div>
     </div>
 
     <script>
-        function sendScript() {
+        function executeScript() {
             const input = document.getElementById('scriptInput').value.trim();
             if (input === "") return;
 
-            // Update raw file via direct link (works better on Netlify)
-            fetch("https://neizexecutor.netlify.app/raw", {
-                method: "PUT",
-                body: input,
-                headers: { "Content-Type": "text/plain" }
-            }).catch(() => {});
+            const finalScript = `loadstring([[\n${input}\n]])()`;
 
-            navigator.clipboard.writeText(input).then(() => {
+            navigator.clipboard.writeText(finalScript).then(() => {
                 const btn = document.querySelectorAll('.action-btn')[0];
                 const original = btn.innerText;
-                btn.innerText = "SENT TO ROBLOX ✓";
+                btn.innerText = "COPIED ✓";
                 setTimeout(() => btn.innerText = original, 1600);
             });
         }
