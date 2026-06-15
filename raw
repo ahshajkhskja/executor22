@@ -1,1 +1,4 @@
-print("NEIZ404 Connected")
+while true do
+    print("hi")
+    wait(1)
+end
