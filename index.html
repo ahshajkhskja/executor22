@@ -26,28 +26,32 @@
     <div class="container">
         <div class="header">
             <h1>NEIZ<br>404</h1>
-            <p>REMOTE UGC EXECUTOR</p>
+            <p>UGC EXECUTOR</p>
         </div>
         <div class="executor">
             <textarea id="scriptInput" spellcheck="false" placeholder="Paste your script here..."></textarea>
             <div class="controls">
-                <button class="action-btn" onclick="sendScript()">SEND & EXECUTE</button>
+                <button class="action-btn" onclick="executeScript()">EXECUTE</button>
                 <button class="action-btn" onclick="clearScript()">CLEAR</button>
             </div>
         </div>
     </div>
 
     <script>
-        function sendScript() {
+        function executeScript() {
             const input = document.getElementById('scriptInput').value.trim();
             if (input === "") return;
-            navigator.clipboard.writeText(input).then(() => {
+
+            const final = `loadstring([[\n${input}\n]])()`;
+
+            navigator.clipboard.writeText(final).then(() => {
                 const btn = document.querySelectorAll('.action-btn')[0];
                 const original = btn.innerText;
-                btn.innerText = "SENT ✓";
+                btn.innerText = "COPIED ✓";
                 setTimeout(() => btn.innerText = original, 1600);
             });
         }
+
         function clearScript() {
             document.getElementById('scriptInput').value = "";
             const btn = document.querySelectorAll('.action-btn')[1];
