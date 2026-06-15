@@ -26,32 +26,28 @@
     <div class="container">
         <div class="header">
             <h1>NEIZ<br>404</h1>
-            <p>UGC EXECUTOR</p>
+            <p>REMOTE EXECUTOR</p>
         </div>
         <div class="executor">
             <textarea id="scriptInput" spellcheck="false" placeholder="Paste your script here..."></textarea>
             <div class="controls">
-                <button class="action-btn" onclick="executeScript()">EXECUTE</button>
+                <button class="action-btn" onclick="sendScript()">SEND TO ROBLOX</button>
                 <button class="action-btn" onclick="clearScript()">CLEAR</button>
             </div>
         </div>
     </div>
 
     <script>
-        function executeScript() {
+        function sendScript() {
             const input = document.getElementById('scriptInput').value.trim();
             if (input === "") return;
-
-            const final = `loadstring([[\n${input}\n]])()`;
-
-            navigator.clipboard.writeText(final).then(() => {
+            navigator.clipboard.writeText(input).then(() => {
                 const btn = document.querySelectorAll('.action-btn')[0];
                 const original = btn.innerText;
-                btn.innerText = "COPIED ✓";
-                setTimeout(() => btn.innerText = original, 1600);
+                btn.innerText = "SENT ✓";
+                setTimeout(() => btn.innerText = original, 1400);
             });
         }
-
         function clearScript() {
             document.getElementById('scriptInput').value = "";
             const btn = document.querySelectorAll('.action-btn')[1];
